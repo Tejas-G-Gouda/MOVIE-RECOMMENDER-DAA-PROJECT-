@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaVerse - 3D Movie Recommender</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-section">
+                <h1 class="logo"><i class="fas fa-film"></i> CinemaVerse</h1>
+                <p class="tagline">Where Cinema Meets AI Magic</p>
+            </div>
+
+            <div class="header-actions">
+                <div class="header-search">
+                    <input id="searchInput" type="text" placeholder="Search movie by name...">
+                    <button class="header-btn header-search-btn" onclick="searchByName()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                <button class="btn-recommend header-btn" onclick="getMovies()">
+                    <i class="fas fa-filter"></i> Find Movies
+                </button>
+            </div>
+        </header>
+
+        <!-- Control Panel -->
+        <section class="control-panel">
+            <div class="form-group">
+                <label for="genre">Select Genre</label>
+                <select id="genre">
+                    <option value="">Choose a genre...</option>
+                    <option value="Sci-Fi">🚀 Sci-Fi</option>
+                    <option value="Action">💥 Action</option>
+                    <option value="Sports">⚽ Sports</option>
+                    <option value="Drama">🎭 Drama</option>
+                    <option value="Comedy">😂 Comedy</option>
+                    <option value="Horror">👻 Horror</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="rating">Min Rating (0-10)</label>
+                <input type="range" id="rating" min="0" max="10" value="7" class="slider">
+                <span class="rating-value"><span id="ratingDisplay">7</span>/10</span>
+            </div>
+
+            <div class="form-group">
+                <label for="language">Select Language</label>
+                <select id="language">
+                    <option value="All Languages">🌍 All Languages</option>
+                    <optgroup label="🇮🇳 Indian Languages">
+                        <option value="Hindi">🇮🇳 Hindi</option>
+                        <option value="Tamil">தமிழ் Tamil</option>
+                        <option value="Telugu">తెలుగు Telugu</option>
+                        <option value="Kannada">ಕನ್ನಡ Kannada</option>
+                        <option value="Malayalam">മലയാളം Malayalam</option>
+                        <option value="Punjabi">ਪੰਜਾਬੀ Punjabi</option>
+                        <option value="Marathi">मराठी Marathi</option>
+                        <option value="Bengali">বাংলা Bengali</option>
+                        <option value="Assamese">অসমীয়া Assamese</option>
+                    </optgroup>
+                    <optgroup label="🌏 International Languages">
+                        <option value="English">🇺🇸 English</option>
+                        <option value="Chinese">🇨🇳 Chinese</option>
+                        <option value="Cantonese">🇭🇰 Cantonese</option>
+                        <option value="Japanese">🇯🇵 Japanese</option>
+                        <option value="Korean">🇰🇷 Korean</option>
+                        <option value="French">🇫🇷 French</option>
+                        <option value="German">🇩🇪 German</option>
+                        <option value="Spanish">🇪🇸 Spanish</option>
+                        <option value="Russian">🇷🇺 Russian</option>
+                        <option value="Indonesian">🇮🇩 Indonesian</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <!-- Control-panel Find Movies button removed (moved to header) -->
+        </section>
+
+        <!-- Achievements UI removed per user request -->
+
+        <!-- Results Grid -->
+        <section class="results-section">
+            <h2><i class="fas fa-clapperboard"></i> Recommended For You</h2>
+            <div class="results-grid" id="result">
+                <div class="empty-state">
+                    <i class="fas fa-popcorn"></i>
+                    <p>Select a genre and rating to discover amazing movies</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Watchlist -->
+        <section class="watchlist-section">
+            <h2><i class="fas fa-bookmark"></i> My Watchlist</h2>
+            <div class="watchlist-grid" id="watchlist">
+                <div class="empty-state">
+                    <p>Your watchlist is empty. Add movies from recommendations!</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Movie Modal -->
+    <div class="modal" id="movieModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-poster" id="modalPoster"></div>
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <div class="modal-meta">
+                        <span id="modalRating"></span>
+                        <span id="modalGenre"></span>
+                    </div>
+                    <p id="modalDescription"></p>
+                    <div class="modal-actions">
+                        <button class="btn-modal btn-add" onclick="addToWatchlist()">
+                            <i class="fas fa-plus"></i> Add to Watchlist
+                        </button>
+                        <button class="btn-modal btn-rate" onclick="rateMovie()">
+                            <i class="fas fa-star"></i> Rate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
