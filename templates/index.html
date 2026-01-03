@@ -22,10 +22,17 @@
 
             <div class="header-actions">
                 <div class="header-search">
-                    <input id="searchInput" type="text" placeholder="Search movie by name...">
-                    <button class="header-btn header-search-btn" onclick="searchByName()">
-                        <i class="fas fa-search"></i> Search
-                    </button>
+                    <div style="position:relative;display:inline-block;">
+                        <input id="searchInput" type="text" placeholder="Search movie by name..." style="width:320px;">
+                        <div id="autocomplete" style="position:absolute;left:0;right:0;top:40px;z-index:50;background:#fff;border:1px solid #ddd;border-radius:6px;display:none;max-height:240px;overflow:auto;"></div>
+                    </div>
+                        <div style="display:inline-flex;gap:6px;align-items:center;margin-left:8px;">
+                            <input id="searchHours" type="number" min="0" placeholder="hrs" style="width:60px;">
+                            <input id="searchMinutes" type="number" min="0" max="59" placeholder="mins" style="width:70px;">
+                        </div>
+                        <button class="header-btn header-search-btn" onclick="searchByName()">
+                            <i class="fas fa-search"></i> Search
+                        </button>
                 </div>
                 <button class="btn-recommend header-btn" onclick="getMovies()">
                     <i class="fas fa-filter"></i> Find Movies
@@ -108,6 +115,106 @@
                     <p>Your watchlist is empty. Add movies from recommendations!</p>
                 </div>
             </div>
+        </section>
+
+        <!-- Add Movie (User-contributed) -->
+        <section class="add-movie-section">
+            <h2><i class="fas fa-plus-circle"></i> Add a Movie</h2>
+            <form id="addMovieForm" onsubmit="submitAddMovie(event)">
+                <div class="form-row">
+                    <label for="addTitle">Title</label>
+                    <input id="addTitle" type="text" placeholder="Movie title" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="addGenre">Genre</label>
+                    <input id="addGenre" type="text" placeholder="Genre (e.g. Sci-Fi)" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="addRating">Rating (0-10)</label>
+                    <input id="addRating" type="number" min="0" max="10" step="0.1" value="7">
+                </div>
+
+                <div class="form-row">
+                    <label for="addLanguage">Language</label>
+                    <input id="addLanguage" type="text" placeholder="Language (e.g. English)" value="English">
+                </div>
+
+                <div class="form-row">
+                    <label>Duration</label>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <input id="addHours" type="number" min="0" placeholder="hrs" style="width:80px;">
+                        <input id="addMinutes" type="number" min="0" max="59" placeholder="mins" style="width:100px;">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="addPoster">Poster Image (optional)</label>
+                    <input id="addPoster" type="file" accept="image/*">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-recommend">Add Movie</button>
+                </div>
+            </form>
+            <div id="addMovieResult" class="add-movie-result"></div>
+        </section>
+
+        <!-- Update Movie (edit existing) -->
+        <section class="update-movie-section">
+            <h2><i class="fas fa-edit"></i> Update an Existing Movie</h2>
+
+            <div class="form-row">
+                <label for="updateLookup">Find movie by name</label>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <input id="updateLookup" type="text" placeholder="Type movie name and click Load">
+                    <button class="header-btn" type="button" onclick="loadExistingMovie()">Load</button>
+                </div>
+            </div>
+
+            <form id="updateMovieForm" onsubmit="submitUpdateMovie(event)">
+                <input id="updateOriginalTitle" type="hidden">
+
+                <div class="form-row">
+                    <label for="updateTitle">Title</label>
+                    <input id="updateTitle" type="text" placeholder="Movie title" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="updateGenre">Genre</label>
+                    <input id="updateGenre" type="text" placeholder="Genre (e.g. Sci-Fi)" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="updateRating">Rating (0-10)</label>
+                    <input id="updateRating" type="number" min="0" max="10" step="0.1" value="7">
+                </div>
+
+                <div class="form-row">
+                    <label for="updateLanguage">Language</label>
+                    <input id="updateLanguage" type="text" placeholder="Language (e.g. English)" value="English">
+                </div>
+
+                <div class="form-row">
+                    <label>Duration</label>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <input id="updateHours" type="number" min="0" placeholder="hrs" style="width:80px;">
+                        <input id="updateMinutes" type="number" min="0" max="59" placeholder="mins" style="width:100px;">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="updatePoster">Replace Poster (optional)</label>
+                    <input id="updatePoster" type="file" accept="image/*">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-recommend">Update Movie</button>
+                </div>
+            </form>
+
+            <div id="updateMovieResult" class="add-movie-result"></div>
         </section>
     </div>
 
