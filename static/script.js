@@ -918,6 +918,65 @@ async function loadExistingMovie() {
     }
 }
 
+// Confirm and remove a movie by name (calls backend /remove_movie)
+async function confirmRemoveMovie() {
+    const q = document.getElementById('removeLookup').value.trim();
+    const resultEl = document.getElementById('removeMovieResult');
+    if (!q) { resultEl.innerHTML = '<span class="error">Enter a movie name to remove</span>'; return; }
+    if (!confirm(`Remove the first movie matching "${q}"? This cannot be undone in memory.`)) return;
+    resultEl.textContent = 'Removing...';
+    try {
+        const resp = await fetch('/remove_movie', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `name=${encodeURIComponent(q)}`
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            resultEl.innerHTML = `<span class="error">Error: ${data.error || 'Failed to remove movie'}</span>`;
+            return;
+        }
+
+        const removed = data.removed || {};
+        resultEl.innerHTML = `<span class="success">Removed: ${removed.title || q} (${removed.genre || 'unknown'})</span>`;
+
+        // update UI: remove any rendered cards for this title and cleanup posters map
+        updateUIAfterRemoval(removed.title || q);
+
+        // clear input
+        document.getElementById('removeLookup').value = '';
+    } catch (err) {
+        console.error(err);
+        resultEl.innerHTML = '<span class="error">Error removing movie</span>';
+    }
+}
+
+function updateUIAfterRemoval(title) {
+    if (!title) return;
+    // remove rendered cards
+    try {
+        const encoded = encodeURIComponent(title);
+        const cards = document.querySelectorAll(`.movie-card[data-title="${encoded}"]`);
+        cards.forEach(c => c.remove());
+    } catch (e) { }
+
+    // remove from posters map
+    try {
+        if (window.latestPosters && window.latestPosters[title]) delete window.latestPosters[title];
+    } catch (e) {}
+
+    // if update form had this movie loaded, clear it
+    try {
+        const orig = document.getElementById('updateOriginalTitle');
+        if (orig && orig.value && orig.value.toLowerCase() === title.toLowerCase()) {
+            document.getElementById('updateMovieForm').reset();
+            document.getElementById('updateOriginalTitle').value = '';
+            const resEl = document.getElementById('updateMovieResult');
+            if (resEl) resEl.innerHTML = `<span class="info">The loaded movie was removed</span>`;
+        }
+    } catch (e) {}
+}
+
 // Submit Update Movie form
 async function submitUpdateMovie(e) {
     e.preventDefault();

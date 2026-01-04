@@ -54,6 +54,13 @@ def build_trie_from_mock():
             seen.add(key)
             TRIE.insert(key, title)
 
+
+def rebuild_trie():
+    """Rebuild the global TRIE from current MOCK_MOVIES"""
+    # reset trie root and rebuild
+    TRIE.root = TrieNode()
+    build_trie_from_mock()
+
 # Mock movie database with language support - English, Hindi, Kannada focus
 MOCK_MOVIES = {
     'Sci-Fi': [
@@ -1090,6 +1097,12 @@ def update_movie():
             q = urllib.parse.quote(new_title)
             poster = f'https://via.placeholder.com/400x220.png?text={q}'
 
+        # rebuild autocomplete trie after update
+        try:
+            rebuild_trie()
+        except Exception:
+            pass
+
         return jsonify({'title': new_title, 'score': score, 'language': language, 'time': time_val or None, 'genre': new_genre, 'poster': poster}), 200
 
     except Exception as e:
@@ -1163,10 +1176,57 @@ def add_movie():
             q = urllib.parse.quote(title)
             poster = f'https://via.placeholder.com/400x220.png?text={q}'
 
+        # rebuild autocomplete trie after add
+        try:
+            rebuild_trie()
+        except Exception:
+            pass
         return jsonify({'title': title, 'score': score, 'language': language, 'time': time_val or None, 'genre': genre, 'poster': poster}), 201
 
     except Exception as e:
         print(f"Add movie error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/remove_movie', methods=['POST'])
+def remove_movie():
+    """Remove a movie by name (first match). Searches case-insensitively and removes the first matching entry."""
+    try:
+        name = request.form.get('name', '').strip()
+        if not name:
+            return jsonify({'error': 'name is required'}), 400
+
+        found = False
+        removed_info = None
+        for genre, movies in list(MOCK_MOVIES.items()):
+            for idx, entry in enumerate(list(movies)):
+                title, score, language, time = parse_entry(entry)
+                if not title:
+                    continue
+                if name.lower() == title.lower() or name.lower() in title.lower():
+                    # remove the entry
+                    try:
+                        removed = MOCK_MOVIES[genre].pop(idx)
+                    except Exception:
+                        continue
+                    removed_info = {'title': title, 'score': score, 'language': language, 'time': time, 'genre': genre}
+                    found = True
+                    break
+            if found:
+                break
+
+        if not found:
+            return jsonify({'error': f'Movie matching "{name}" not found'}), 404
+
+        # rebuild trie to keep autocomplete consistent
+        try:
+            rebuild_trie()
+        except Exception:
+            pass
+
+        return jsonify({'removed': removed_info}), 200
+    except Exception as e:
+        print(f"Remove movie error: {e}")
         return jsonify({'error': str(e)}), 500
 
 @app.errorhandler(404)
