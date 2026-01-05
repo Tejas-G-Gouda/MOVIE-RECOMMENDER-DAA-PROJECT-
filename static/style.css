@@ -1168,3 +1168,267 @@ body {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+/* Algorithms Panel Styles */
+.algorithms-panel {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+    overflow-y: auto;
+}
+
+.algorithms-panel.show {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+.algorithms-container {
+    background: linear-gradient(135deg, rgba(10, 14, 39, 0.98), rgba(20, 0, 50, 0.98));
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 1200px;
+    width: 100%;
+    box-shadow: 0 25px 80px rgba(0, 212, 255, 0.25);
+    animation: slideIn 0.4s ease;
+}
+
+.algorithms-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.algorithms-header h2 {
+    font-size: 2em;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.algorithms-header h2 i {
+    font-size: 1.2em;
+}
+
+.algo-close-btn {
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: var(--secondary);
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.algo-close-btn:hover {
+    color: var(--primary);
+    transform: rotate(90deg) scale(1.1);
+}
+
+.algorithms-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.algorithms-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.algorithms-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.algorithms-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 212, 255, 0.2);
+    border-radius: 10px;
+}
+
+.algorithms-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 212, 255, 0.4);
+}
+
+.algo-card {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(128, 0, 255, 0.08));
+    border: 1.5px solid var(--border-color);
+    border-radius: 15px;
+    padding: 25px;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+}
+
+.algo-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.1), transparent);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+.algo-card:hover::before {
+    opacity: 1;
+    top: -10%;
+    right: -10%;
+}
+
+.algo-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 15px 50px rgba(0, 212, 255, 0.2), inset 0 0 30px rgba(0, 212, 255, 0.05);
+}
+
+.algo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    border-radius: 12px;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: white;
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.algo-card:hover .algo-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4);
+}
+
+.algo-card h3 {
+    font-size: 1.3em;
+    color: var(--primary);
+    margin: 0 0 12px 0;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.15);
+}
+
+.algo-desc {
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+    margin: 0 0 15px 0;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.algo-usage {
+    font-size: 0.9em;
+    color: var(--secondary);
+    line-height: 1.6;
+    margin: 0 0 15px 0;
+    padding: 12px;
+    background: rgba(255, 0, 110, 0.08);
+    border-left: 3px solid var(--secondary);
+    border-radius: 6px;
+}
+
+.algo-usage strong {
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+.algo-complexity {
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    padding: 12px;
+    background: rgba(0, 212, 255, 0.06);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 212, 255, 0.15);
+}
+
+.complexity-item {
+    font-size: 0.85em;
+    color: var(--light-text);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.5px;
+}
+
+.complexity-item strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* Responsive Design for Algorithms Panel */
+@media (max-width: 1024px) {
+    .algorithms-content {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .algorithms-container {
+        padding: 30px;
+    }
+
+    .algorithms-header h2 {
+        font-size: 1.6em;
+    }
+}
+
+@media (max-width: 768px) {
+    .algorithms-panel.show {
+        padding: 20px 10px;
+    }
+
+    .algorithms-container {
+        padding: 25px;
+        border-radius: 15px;
+    }
+
+    .algorithms-header {
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+    }
+
+    .algorithms-header h2 {
+        font-size: 1.4em;
+    }
+
+    .algo-close-btn {
+        font-size: 1.5em;
+        width: 35px;
+        height: 35px;
+    }
+
+    .algorithms-content {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        max-height: 60vh;
+    }
+
+    .algo-card {
+        padding: 20px;
+    }
+}

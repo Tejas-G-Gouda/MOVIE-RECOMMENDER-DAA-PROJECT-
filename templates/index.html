@@ -41,6 +41,9 @@
                 <button class="btn-recommend header-btn" onclick="getMovies()">
                     <i class="fas fa-filter"></i> Find Movies
                 </button>
+                <button class="header-btn" onclick="openAlgorithmsPanel()">
+                    <i class="fas fa-code"></i> Algorithms
+                </button>
             </div>
         </header>
 
@@ -243,6 +246,140 @@
                         <button class="btn-modal btn-rate" onclick="rateMovie()">
                             <i class="fas fa-star"></i> Rate
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Algorithms Panel -->
+    <div class="algorithms-panel" id="algorithmsPanel">
+        <div class="algorithms-container">
+            <div class="algorithms-header">
+                <h2><i class="fas fa-code"></i> Algorithms & Data Structures</h2>
+                <button class="algo-close-btn" onclick="closeAlgorithmsPanel()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="algorithms-content">
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-binoculars"></i></div>
+                    <h3>Linear Search</h3>
+                    <p class="algo-desc">Sequentially examines each element until a match is found.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Movie name search completion and autocomplete dropdown matching.</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(n)</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(1)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-arrow-down-short-wide"></i></div>
+                    <h3>Binary Search</h3>
+                    <p class="algo-desc">Efficiently searches sorted data by dividing search space in half.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Finding movies within rating ranges (0-10 slider range queries).</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(log n)</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(1)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-sitemap"></i></div>
+                    <h3>Trie (Prefix Tree)</h3>
+                    <p class="algo-desc">Tree structure for storing strings to enable fast prefix-based retrieval.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Autocomplete suggestions for movie names (stores all movie titles).</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(m) where m = prefix length</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(ALPHABET_SIZE * N)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Breadth-First Search (BFS)</h3>
+                    <p class="algo-desc">Explores all neighbors before moving deeper; explores level by level.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Finding similar movies by exploring related genres and ratings at each level.</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(V + E) where V = vertices, E = edges</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(V)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-code-branch"></i></div>
+                    <h3>Depth-First Search (DFS)</h3>
+                    <p class="algo-desc">Explores graph/tree by going deep first before backtracking.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Exploring genre hierarchies and building movie recommendation chains.</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(V + E)</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(V)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-coins"></i></div>
+                    <h3>Greedy Algorithm</h3>
+                    <p class="algo-desc">Makes locally optimal choices at each step to find a global optimum.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Recommending highest-rated movies first for each genre category.</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(n log n)</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(1)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-arrow-up-a-z"></i></div>
+                    <h3>Merge Sort</h3>
+                    <p class="algo-desc">Divide-and-conquer sorting algorithm that divides, conquers, and merges.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Sorting movies by rating, title, or language for display in recommendations.</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(n log n)</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(n)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-key"></i></div>
+                    <h3>Hashing (Hash Map)</h3>
+                    <p class="algo-desc">Maps keys to values using hash functions for fast lookups.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Storing movie database, ratings, watchlist, and user feedback for O(1) access.</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(1) average, O(n) worst</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(n)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-bars"></i></div>
+                    <h3>Stack</h3>
+                    <p class="algo-desc">LIFO data structure: last element added is first to be removed.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Managing browser back/forward navigation and undo operations in watchlist.</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(1) push/pop</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(n)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Queue</h3>
+                    <p class="algo-desc">FIFO data structure: first element added is first to be removed.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Processing user requests sequentially (recommendations, searches).</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(1) enqueue/dequeue</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(n)</span>
+                    </div>
+                </div>
+
+                <div class="algo-card">
+                    <div class="algo-icon"><i class="fas fa-gift"></i></div>
+                    <h3>Dynamic Programming (0/1 Knapsack)</h3>
+                    <p class="algo-desc">Solves optimization problems by storing subproblem solutions.</p>
+                    <p class="algo-usage"><strong>Usage:</strong> Watch-time based recommendations (maximizing movie value within time constraints).</p>
+                    <div class="algo-complexity">
+                        <span class="complexity-item"><strong>Time:</strong> O(n * W) where n = items, W = capacity</span>
+                        <span class="complexity-item"><strong>Space:</strong> O(n * W)</span>
                     </div>
                 </div>
             </div>

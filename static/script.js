@@ -1094,3 +1094,45 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+/* ======================== ALGORITHMS PANEL FUNCTIONS ======================== */
+
+// Open Algorithms Panel
+function openAlgorithmsPanel() {
+    const panel = document.getElementById('algorithmsPanel');
+    if (panel) {
+        panel.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Close Algorithms Panel
+function closeAlgorithmsPanel() {
+    const panel = document.getElementById('algorithmsPanel');
+    if (panel) {
+        panel.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Close panel when clicking on overlay (outside the container)
+document.addEventListener('DOMContentLoaded', () => {
+    const panel = document.getElementById('algorithmsPanel');
+    if (panel) {
+        panel.addEventListener('click', (e) => {
+            if (e.target === panel) {
+                closeAlgorithmsPanel();
+            }
+        });
+    }
+});
+
+// Close panel with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const panel = document.getElementById('algorithmsPanel');
+        if (panel && panel.classList.contains('show')) {
+            closeAlgorithmsPanel();
+        }
+    }
+});
